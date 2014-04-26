@@ -1,7 +1,6 @@
 ButtonsController bController = new ButtonsController();
 
 void setup() {
-println("ciao");
   size(800,800);
   background(255);
   bController.init();

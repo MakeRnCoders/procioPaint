@@ -5,21 +5,25 @@ class ButtonsController {
   int lastPressedButton;
   
   ButtonsController() {
-    this.nbuttons = 2;
     this.bx1 = 10;
-    this.by1 = 10;
-    this.vshift = 60;
+    this.by1 = 20;
     this.pressedButton = -1;
     this.lastPressedButton = -1;
-    Button rb = new Button(this.bx1, this.by1, 'r');
-    Button eb = new Button(this.bx1, this.by1 + vshift, 'e');
-    Button[] buttonss = {rb, eb};
+    Button rb = new Button(this.bx1, this.by1, 'r');             // rectangle
+    this.vshift = this.by1 + rb.bHeight;
+    Button eb = new Button(this.bx1, this.by1 + vshift, 'e');    // ellipse
+    Button lb = new Button(this.bx1, this.by1 + 2*vshift, 'l');  // line
+    // 800 is the height value i choose, but that variable is out of scope
+    Button sb = new Button(this.bx1, 800 - rb.bHeight - this.by1, 's'); // save
+    Button[] buttonss = {rb, eb, lb, sb};
+    this.nbuttons = buttonss.length;
     this.buttons = buttonss;
     this.paintedButtonsAreaWidth = 80;
 }
   
   void init() {
-    paintButtonArea();
+    paintButtonsArea();
+    // draw the buttons at program launch
     for (int i=0; i<this.nbuttons; i++) {
       this.buttons[i].update();
     }
@@ -38,13 +42,15 @@ class ButtonsController {
   void updatePressedButton(int pb) {
     this.pressedButton = pb;
     if (this.lastPressedButton != -1) {
+      // deselect last pressed button
       this.buttons[this.lastPressedButton].buttonPressed();
     }
+    // select the pressed button
     this.buttons[pb].buttonPressed();
     this.lastPressedButton = pb;
   }
     
-  void paintButtonArea() {
+  void paintButtonsArea() {
     fill(20);
     rect(0,0,this.paintedButtonsAreaWidth,height);
   }    

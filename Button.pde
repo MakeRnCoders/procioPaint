@@ -28,12 +28,14 @@ class Button {
     
   void update() {
     stroke(0);
+    // button is pressed
     if (this.pressedState) {
-      fill(30);
+      fill(70);
     }
+    // button is not pressed
     else fill(200);
     rect(this.xPos, this.yPos, this.bWidth, this.bHeight);
-    // draw the white image inside the button
+    // draw the white image inside the buttons
     fill(255);
     noStroke();
     switch (this.type) {
@@ -43,6 +45,16 @@ class Button {
       case('e') :
         ellipse(this.xPos + this.bWidth/2, this.yPos + this.bHeight/2, 10, 10);
         break;
+      case('l') :
+        stroke(255); // draw a white line
+        line(this.xPos + this.bWidth/2 - 5, this.yPos + this.bHeight/2 - 5, this.xPos + this.bWidth/2 + 5, this.yPos + this.bHeight/2 + 5);
+        noStroke();
+        break;
+      case('s') : // save button
+        fill(255);
+        PFont mFont = createFont("matrix",20);
+        textFont(mFont);
+        text("save", this.xPos + 12, this.yPos + this.bHeight/2 + 7); // this could be made number independent
     }
   }
 }
