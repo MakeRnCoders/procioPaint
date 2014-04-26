@@ -1,16 +1,12 @@
-ButtonsController bController = new ButtonsController();
+DrawingManager dManager;
 
 void setup() {
   size(800,800);
   background(255);
-  bController.init();
+  dManager = new DrawingManager(width, height);
+  dManager.init();
 }
 
 void draw() {
-  // change the drawing tool
-  if (mousePressed) {
-    delay(100);
-    bController.checkMouseOver();
-  }
-  // actually draw using that tool
+  dManager.checkStatus();
 }
