@@ -27,7 +27,7 @@ class Button {
   } 
     
   void update() {
-    stroke(0);
+    stroke(255); // button border
     // button is pressed
     if (this.pressedState) {
       fill(70);
@@ -35,6 +35,7 @@ class Button {
     // button is not pressed
     else fill(200);
     rect(this.xPos, this.yPos, this.bWidth, this.bHeight);
+    
     // draw the white image inside the buttons
     fill(255);
     noStroke();

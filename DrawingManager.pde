@@ -7,7 +7,6 @@ class DrawingManager {
   DrawingManager(int wW, int wH) {
     this.windowWidth = wW;
     this.windowHeight = wH;
-    println(wW, wH);
     this.isDrawing = false;
     this.firstPoint = new Point(-1,-1);
     this.secondPoint = new Point(-1,-1);
@@ -47,9 +46,7 @@ class DrawingManager {
     }
     // actually draw using that tool
     else if (this.onPaper()) {
-      println(mouseX, ' ', mouseY);
       if (this.isDrawing) {
-        println("is drawing!");
         this.drawShape();
       }
     }
@@ -57,10 +54,6 @@ class DrawingManager {
   
   boolean onPaper() {
     boolean result = (mouseX < this.windowWidth && mouseX > this.bController.paintedButtonsAreaWidth && mouseY < this.windowHeight && mouseY > 0);
-    if (result)
-      println("on paper");
-    else
-      println("not on paper");
     return (result);
   }
   
@@ -76,15 +69,18 @@ class DrawingManager {
         break;
       case(1) :
         fill(0);
-        ellipse(this.firstPoint.x, this.firstPoint.y, mouseX - this.firstPoint.x, mouseY - this.firstPoint.y);
+        // This is a different version of the ellipse drawing: keeps the center fixed:
+        // needs a fix (line after) since it can be possible that the user draws over the buttons canvas!
+//        ellipse(this.firstPoint.x, this.firstPoint.y, (mouseX - this.firstPoint.x)*2, (mouseY - this.firstPoint.y)*2);
+//        this.bController.init(); // in case the user draws a too wide ellipse
+        ellipse(this.firstPoint.x + (mouseX - this.firstPoint.x)/2, this.firstPoint.y + (mouseY - this.firstPoint.y)/2, 
+                (mouseX - this.firstPoint.x), (mouseY - this.firstPoint.y));
         break;
-//      case(2) :
-//        line(mouseX, mouseY, mouseX, mouseY);
-//        break;
+      case(2) :
+        stroke(0);
+        line(this.firstPoint.x, this.firstPoint.y, mouseX, mouseY);
+        noStroke();
+        break;
     }
-  }
-  
-//  boolean isDrawing() {
-//    return (this.firstPoint.x != -1 && this.firstPoint.y != -1 && this.secondPoint.x == -1 && this.secondPoint.y == -1);
-//  }
+  }  
 }

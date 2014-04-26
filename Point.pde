@@ -10,5 +10,4 @@ class Point {
     this.x = newX;
     this.y = newY;
   }
-  
 }

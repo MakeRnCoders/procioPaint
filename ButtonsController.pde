@@ -40,6 +40,12 @@ class ButtonsController {
   }
   
   void updatePressedButton(int pb) {
+    // save button pressed
+    if (pb == 3) {
+      saveFrame("artwork-#####.png");
+      println(" Artwork saved in the directory containing the sketch ;)\n");
+      return;
+    }
     this.pressedButton = pb;
     if (this.lastPressedButton != -1) {
       // deselect last pressed button
