@@ -19,7 +19,7 @@ class ButtonsController {
     this.nbuttons = buttonss.length;
     this.buttons = buttonss;
     this.paintedButtonsAreaWidth = 80;
-}
+  }
   
   void init() {
     paintButtonsArea();
