@@ -3,6 +3,7 @@ class DrawingManager {
   boolean isDrawing;
   Point firstPoint, secondPoint;
   ButtonsController bController;
+  color[] savedPaperState;
   
   DrawingManager(int wW, int wH) {
     this.windowWidth = wW;
@@ -13,6 +14,7 @@ class DrawingManager {
     this.bController = new ButtonsController();
     this.paperWidth = this.windowWidth - this.bController.paintedButtonsAreaWidth;
     this.paperHeight = this.windowHeight;
+    this.savedPaperState = new color[wW*wH];
   }
   
   void init() {
@@ -24,7 +26,7 @@ class DrawingManager {
       delay(100);
       if (this.onPaper()) {
         // if the user is not drawing something yet
-        if (!this.isDrawing) {
+        if (!this.isDrawing) { // first click
           // init secondPoint
           this.secondPoint.x = -1;
           this.secondPoint.y = -1;
@@ -32,13 +34,19 @@ class DrawingManager {
           // set firstPoint
           this.firstPoint.x = mouseX;
           this.firstPoint.y = mouseY;
-          this.drawShape();
+          // store the actual state of the paper
+          loadPixels();
+          arrayCopy(pixels, this.savedPaperState);
+          this.drawShape(); // check if this can be removed
         }
-        else {
+        else { // second click (finalize shape)
           this.secondPoint.x = mouseX;
           this.secondPoint.y = mouseY;
           this.isDrawing = false;
           this.drawShape();
+          // store actual paper's state
+          loadPixels();
+          arrayCopy(pixels, savedPaperState);
         }
       }
       // change the drawing tool
@@ -58,9 +66,17 @@ class DrawingManager {
   }
   
   void drawShape() {
+    
+    // clean the paper
     // paint the paper in white
     fill(255);
     rect(this.bController.paintedButtonsAreaWidth, 0, this.paperWidth, this.paperHeight);
+    
+    // put back what was drawn before
+    arrayCopy(savedPaperState, pixels);
+    updatePixels();
+    
+    // draw
     delay(50);
     switch (this.bController.pressedButton) {
       case(0) :
