@@ -14,6 +14,7 @@ class ButtonsController {
     Button eb = new Button(this.bx1, this.by1 + vshift, 'e');    // ellipse
     Button lb = new Button(this.bx1, this.by1 + 2*vshift, 'l');  // line
     // 800 is the height value i choose, but that variable is out of scope
+    // The save button must be the last in the array!
     Button sb = new Button(this.bx1, 800 - rb.bHeight - this.by1, 's'); // save
     Button[] buttonss = {rb, eb, lb, sb};
     this.nbuttons = buttonss.length;
@@ -41,7 +42,8 @@ class ButtonsController {
   
   void updatePressedButton(int pb) {
     // save button pressed
-    if (pb == 3) {
+    // save button must be the last in the array!
+    if (pb == (this.buttons.length - 1)) {
       saveFrame("artwork-#####.png");
       println(" Artwork saved in the directory containing the sketch ;)\n");
       return;

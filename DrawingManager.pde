@@ -85,10 +85,9 @@ class DrawingManager {
         break;
       case(1) :
         fill(0);
-        // This is a different version of the ellipse drawing: keeps the center fixed:
-        // needs a fix (line after) since it can be possible that the user draws over the buttons canvas!
+        // This is a different version of the ellipse drawing: it keeps the center fixed
 //        ellipse(this.firstPoint.x, this.firstPoint.y, (mouseX - this.firstPoint.x)*2, (mouseY - this.firstPoint.y)*2);
-//        this.bController.init(); // in case the user draws a too wide ellipse
+//        this.bController.init(); // in case the user draws a too wide ellipse from (left to right; the ellipse grows in both directions!)
         ellipse(this.firstPoint.x + (mouseX - this.firstPoint.x)/2, this.firstPoint.y + (mouseY - this.firstPoint.y)/2, 
                 (mouseX - this.firstPoint.x), (mouseY - this.firstPoint.y));
         break;
